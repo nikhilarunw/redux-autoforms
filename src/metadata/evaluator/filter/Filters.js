@@ -14,7 +14,7 @@ export default class Filters {
 
         if(!propertyMetadata) throw Error('Argument \'propertyMetadata\' should be truthy');
         if(!model) throw Error('Argument \'model\' should be truthy');
-        if( !globalScope ) globalScope = model
+        //if( !globalScope ) globalScope = model
 
         if (propertyMetadata.type == 'array' && propertyMetadata.arrayType == 'entity') {
             if (!propertyMetadata.fields) {
@@ -81,7 +81,7 @@ export default class Filters {
     static entityFilter(propertyMetadata, model, keyPrefix, metadataEvaluator, reduxProps, onChange, globalScope) {
         if (!propertyMetadata) throw new Error('metadata is required');
         if (!model) throw new Error('model is required');
-        if( !globalScope ) globalScope = model
+        //if( !globalScope ) globalScope = model
 
         if (propertyMetadata.type == 'entity') {
 

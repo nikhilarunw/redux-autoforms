@@ -15,12 +15,12 @@ export default class Validators {
      * @param validator
      * @returns {*}
      */
-    static validateArray(propertyMetadata, modelValue, model, validator) {
+    static validateArray(propertyMetadata, modelValue, model, validator, globalScope) {
         if (!modelValue) return undefined;
         if (propertyMetadata.type != 'array') return undefined;
         if (!modelValue.length) return undefined;
 
-        return modelValue.map(item => validator.validate(propertyMetadata.fields, item));
+        return modelValue.map(item => validator.validate(propertyMetadata.fields, item, globalScope));
     };
 
     /**
@@ -31,7 +31,7 @@ export default class Validators {
      * @param validator
      * @returns {*}
      */
-    static validateDateTime(propertyMetadata, modelValue, model, validator) {
+    static validateDateTime(propertyMetadata, modelValue, model, validator, globalScope) {
         if (modelValue === undefined) return undefined; // null is considered an invalid datetime
         if (propertyMetadata.type != 'datetime' && propertyMetadata.type != 'time' && propertyMetadata.type != 'date') return undefined;
 
@@ -46,11 +46,11 @@ export default class Validators {
      * @param validator
      * @returns {*}
      */
-    static validateDefault(propertyMetadata, modelValue, model, validator) {
+    static validateDefault(propertyMetadata, modelValue, model, validator, globalScope) {
         if (propertyMetadata.type == 'entity' || propertyMetadata.type == 'array') return undefined;
         if (!propertyMetadata.error) return undefined;
 
-        return expressionEvaluator.evaluate(propertyMetadata.error, model);
+        return expressionEvaluator.evaluate(propertyMetadata.error, model, globalScope);
     }
 
     /**
@@ -61,11 +61,11 @@ export default class Validators {
      * @param validator
      * @returns {*}
      */
-    static validateEntity(propertyMetadata, modelValue, model, validator) {
+    static validateEntity(propertyMetadata, modelValue, model, validator, globalScope) {
         if(!modelValue) return undefined;
         if (propertyMetadata.type != 'entity') return undefined;
 
-        return validator.validate(propertyMetadata.fields, modelValue);
+        return validator.validate(propertyMetadata.fields, modelValue, globalScope);
     };
 
     /**
@@ -76,7 +76,7 @@ export default class Validators {
      * @param validator
      * @returns {*}
      */
-    static validateFloat(propertyMetadata, modelValue, model, validator) {
+    static validateFloat(propertyMetadata, modelValue, model, validator, globalScope) {
         let localizer;
 
         // null is considered an invalid datetime
@@ -97,7 +97,7 @@ export default class Validators {
      * @param validator
      * @returns {*}
      */
-    static validateInt(propertyMetadata, modelValue, model, validator) {
+    static validateInt(propertyMetadata, modelValue, model, validator, globalScope) {
         if (modelValue === undefined) return undefined; // null is considered an invalid datetime
         if (propertyMetadata.type != 'int') return undefined;
 
@@ -112,10 +112,10 @@ export default class Validators {
      * @param validator
      * @returns {*}
      */
-    static validateRequired(propertyMetadata, modelValue, model, validator) {
+    static validateRequired(propertyMetadata, modelValue, model, validator, globalScope) {
         if(!propertyMetadata.required || (modelValue !== undefined && modelValue !== null && modelValue !== ''))
             return undefined;
 
-        return expressionEvaluator.evaluate(propertyMetadata.required, model) ? 'Required' : undefined;
+        return expressionEvaluator.evaluate(propertyMetadata.required, model, globalScope) ? 'Required' : undefined;
     }
 }

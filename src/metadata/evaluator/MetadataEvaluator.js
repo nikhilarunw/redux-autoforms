@@ -43,7 +43,7 @@ class MetadataEvaluator {
     static evaluate(propertyMetadata, model, keyPrefix, reduxFieldProps, onChange, globalScope) {
         if (!propertyMetadata) throw Error('Argument \'propertyMetadata\' should be truthy');
         if (!model) throw Error('\'model\' should be truthy');
-
+        if(!globalScope) globalScope = model;
         if (propertyMetadata.constructor === Array) {
             return propertyMetadata.map(i => this.evaluate(i, model, keyPrefix, reduxFieldProps, onChange, globalScope));
         }
