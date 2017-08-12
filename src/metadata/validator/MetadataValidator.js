@@ -17,7 +17,7 @@ class MetadataValidator {
      * @param model
      * @returns {{}}
      */
-    static validate(propertyMetadata, model) {
+    static validate(propertyMetadata, model, globalScope) {
         if (!propertyMetadata) throw Error('Argument \'propertyMetadata\' should be truthy');
         if (!model) throw Error('\'model\' should be truthy');
         if (propertyMetadata.constructor !== Array) throw Error('ApropertyMetadata should be an array');
@@ -30,7 +30,7 @@ class MetadataValidator {
 
             for(let i = 0; i < validators.length; i++) {
                 let validate = validators[i];
-                propertyValidation = validate(m, model[m.name], model, this);
+                propertyValidation = validate(m, model[m.name], model, this, globalScope);
 
                 if (propertyValidation !== null && propertyValidation !== undefined) break;
             }

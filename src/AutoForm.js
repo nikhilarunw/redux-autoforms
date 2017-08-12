@@ -49,7 +49,7 @@ class AutoForm extends Component {
 
             let validate = (values) => {
                 let modelParsed = ModelParser.process(values, fieldMetadata);
-                return MetadataValidator.validate(fieldMetadata, modelParsed) || {};
+                return MetadataValidator.validate(fieldMetadata, modelParsed, modelParsed) || {};
             };
 
             let autoFormProps = {
