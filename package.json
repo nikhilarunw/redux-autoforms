@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/redux-autoform/redux-autoform#readme",
   "dependencies": {
+    "prop-types": "^15.7.2",
     "react": "^16.4.1",
     "react-addons-update": "^15.2.1",
     "react-dom": "^16.4.1",
