@@ -185,7 +185,7 @@ export default class MetadataProvider {
                 let groupField = layout.fields[i];
                 let existingEntityProperty = entity.fields.find(field => field.name == groupField.name);
 
-                let field = {...existingEntityProperty || {}, ...groupField};
+                let field = {...(existingEntityProperty || {}), ...groupField};
                 this.validateFieldMetadata(field);
 
                 thisGroupFields.push(field);
